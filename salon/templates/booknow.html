@@ -1,0 +1,400 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>LuxeSalon</title>
+
+<style>
+    *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+
+
+body{
+
+background:#fff;
+
+}
+
+
+
+header{
+
+height:80px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px 60px;
+
+}
+
+
+
+.logo{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+
+
+.logo img{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+}
+
+
+
+.logo h2{
+
+font-size:25px;
+
+}
+
+
+
+nav{
+
+display:flex;
+
+align-items:center;
+
+gap:30px;
+
+}
+
+
+
+nav a{
+
+text-decoration:none;
+
+color:black;
+
+font-size:18px;
+
+}
+
+
+
+nav a:hover{
+
+color:rose;
+
+color:#e75480;
+
+}
+
+
+
+button{
+
+background:#e75480;
+
+color:white;
+
+border:none;
+
+padding:12px 25px;
+
+border-radius:25px;
+
+cursor:pointer;
+
+}
+
+
+
+button:hover{
+
+background:#c2185b;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.screen { width: 100vw; height: 100vh; display: none; background: #f9f9f9; padding: 40px; overflow-y: auto; }
+  .active { display: block; }
+  .rose-btn { background: #e91e63; color: #fff; border: none; padding: 12px 24px; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 15px; display: inline-block; }
+  .rose-btn:hover { background: #d81b60; }
+  .container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  h1 { font-size: 24px; color: #000; margin-bottom: 20px; }
+  h2 { font-size: 18px; color: #000; margin-bottom: 10px; }
+  p, label { font-size: 14px; color: #333; margin-bottom: 5px; }
+  .card-mini { border: 1px solid #ddd; padding: 15px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; margin-top: 10px; cursor: pointer; }
+  .card-mini.selected { border-color: #e91e63; background: #fff0f3; }
+  .rect-img { width: 100%; height: 150px; background: #ddd; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #666; margin: 10px 0; }
+  .img{width: 20%; height: 30px; }
+  input, textarea { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+  .calendar-box { border: 1px solid #ccc; padding: 15px; border-radius: 6px; margin: 15px 0; background: #fff; }
+  .flex-row { display: flex; gap: 20px; }
+  .flex-col { flex: 1; }
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+
+<div class="logo">
+
+<img src="{% static 'images/HomeTopLogo.jpg' %}" alt="">
+
+<h2>LuxeSalon</h2>
+
+</div>
+
+
+
+<nav>
+
+<a href="">Home</a>
+
+<a href="/services/">Services</a>
+
+<a href="/about/">About</a>
+
+<a href="/contact/">Contact</a>
+
+<button class="rose-btn" onclick="goToPage(2)">Book Now</button>
+</nav>
+
+</header>
+
+
+
+
+
+   <!-- PAGE 2: Select Service -->
+<div id="page2" class="screen">
+  <div class="container">
+    <h1>Select Service</h1>
+    <div class="flex-row">
+      <div class="flex-col">
+        <h2>Haircut</h2>
+        <p>A classic haircut to refresh your style</p>
+        <div class="card-mini" id="serviceCard" onclick="toggleService()">
+          <span>Haircut - ₹500</span>
+          <span id="tickSym" style="display:none; color:#e91e63; font-weight:bold;">✓ Selected</span>
+        </div>
+        <button class="rose-btn" onclick="validatePage2()">Continue</button>
+      </div>
+      <div class="flex-col">
+        <div class="rect-img"><img src="{% static 'images/rectangle1.jpg' %}" alt="">Rectangle Image Preview</div>
+      </div>
+           
+       </div>
+  </div>
+</div>
+  </div>
+  </div>
+
+
+
+
+  
+    
+  
+
+
+
+
+ 
+<!-- PAGE 3: Select Date -->
+<div id="page3" class="screen">
+  <div class="container">
+    <h1>SelectDate</h1>
+    <div class="calendar-box">
+      <h3>Monthly Calendar & Year Select</h3>
+      <input type="date" id="selectedDateInput" value="2026-08-01">
+    </div>
+    <div style="text-align: center;">
+      <button class="rose-btn" onclick="goToPage(4)">Next</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: Enter Details Form -->
+<div id="page4" class="screen">
+  <div class="container">
+    <h1>Enter your Details</h1>
+    <label>FullName</label>
+    <input type="text" id="detName" onclick="autoFill(1)" placeholder="Touch to auto-fill">
+    <label>Phonenumber</label>
+    <input type="text" id="detPhone" onclick="autoFill(2)" placeholder="Touch to auto-fill">
+    <label>Email-id</label>
+    <input type="text" id="detEmail" onclick="autoFill(3)" placeholder="Touch to auto-fill">
+    <label>Notes (optional)</label>
+    <textarea id="detNotes" onclick="autoFill(4)" placeholder="Touch to auto-fill"></textarea>
+    <div style="text-align: center;">
+      <button class="rose-btn" onclick="goToPage(5)">Confirm-Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5: Confirm Your Booking & Summary -->
+<div id="page5" class="screen">
+  <div class="container">
+    <h1>Confirm Your Booking</h1>
+    <h2>YourBooking</h2>
+    <p><strong>Service:</strong> Women's Haircut With Sarah</p>
+    <p><strong>Date & Time:</strong> Friday, Aug 07, 2026 - 10:00 AM</p>
+    <p id="sumEmail">Email: </p>
+    <p id="sumPhone">Phone: </p>
+    <h2>Payment</h2>
+    <p>Total rupees: ₹500</p>
+    <p>Pay in Person</p>
+    <div style="text-align: center;">
+      <button class="rose-btn" onclick="goToPage(6)">Payment Button</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 6: Card Payment Form -->
+<div id="page6" class="screen">
+  <div class="container">
+    <h1>CardPayment</h1>
+    
+    <label>Card Number</label>
+    <input type="text" id="payCard" onclick="autoFillCard(1)" placeholder="Touch to auto-fill">
+    <label>Name Card</label>
+    <input type="text" id="payName" onclick="autoFillCard(2)" placeholder="Touch to auto-fill">
+    <label>Expiry Date (MM/YY)</label>
+    <input type="text" id="payExp" onclick="autoFillCard(3)" placeholder="Touch to auto-fill">
+    <label>CVV</label>
+    <input type="text" id="payCvv" onclick="autoFillCard(4)" placeholder="Touch to auto-fill">
+    <p style="font-size:12px; color:#666;">Your card details are encrypted and secure.</p>
+    <h3>Total Amount: ₹500</h3>
+    <div style="text-align: center;">
+      <button class="rose-btn" onclick="goToPage(7)">Pay Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 7: Success / Appointment Details -->
+<div id="page7" class="screen">
+  <div class="container" style="text-align: center;">
+    <h1>Your Appointment</h1>
+    
+    <div style="text-align: left; display: inline-block; margin: 15px 0;">
+      <p><strong>Booking Details</strong></p>
+      <p>Booking ID: #BK-98234</p>
+      <p>Service: Haircut</p>
+      <p>Professionals Name: Sarah</p>
+      <p>Date: August 07, 2026</p>
+      <p>Time: 10:00 AM</p>
+    </div>
+    <div>
+      <button class="rose-btn" onclick="triggerAlertAction('Go to Home clicked!')">Go to Home</button>
+      <button class="rose-btn" style="margin-left: 10px;" onclick="triggerAlertAction('Book Appointment clicked!')">Book Appointment</button>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+    let serviceSelected = false;
+
+  function goToPage(pageNum) {
+    alert("Moving to next page!");
+    document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+    document.getElementById('page' + pageNum).classList.add('active');
+  }
+
+  function toggleService() {
+    serviceSelected = !serviceSelected;
+    let card = document.getElementById('serviceCard');
+    let tick = document.getElementById('tickSym');
+    if (serviceSelected) {
+      card.classList.add('selected');
+      tick.style.display = 'inline';
+      alert("Service selected: Haircut ₹500");
+    } else {
+      card.classList.remove('selected');
+      tick.style.display = 'none';
+    }
+  }
+
+  function validatePage2() {
+    if (!serviceSelected) {
+      alert("Please select the service card first!");
+      return;
+    }
+    goToPage(3);
+  }
+
+  function autoFill(fieldId) {
+    if (fieldId === 1) document.getElementById('detName').value = "P.selvaganesh";
+    if (fieldId === 2) document.getElementById('detPhone').value = "+91 9876543210";
+    if (fieldId === 3) {
+      let email = "selvae@example.com";
+      document.getElementById('detEmail').value = email;
+      document.getElementById('sumEmail').innerText = "Email: " + email;
+    }
+    if (fieldId === 4) document.getElementById('detNotes').value = "Please be precise on sides.";
+    if (fieldId === 2) {
+      let ph = "+91 9876543210";
+      document.getElementById('sumPhone').innerText = "Phone: " + ph;
+    }
+    alert("Auto-filled field!");
+  }
+
+  function autoFillCard(fieldId) {
+    if (fieldId === 1) document.getElementById('payCard').value = "4111 2222 3333 4444";
+    if (fieldId === 2) document.getElementById('payName').value = "selvaganaesh";
+    if (fieldId === 3) document.getElementById('payExp').value = "08/28";
+    if (fieldId === 4) document.getElementById('payCvv').value = "123";
+    alert("Card detail auto-filled!");
+  }
+
+  function triggerAlertAction(msg) {
+    alert(msg);
+    document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+    document.getElementById('page1').classList.add('active');
+  }
+</script>
+
+
+
+
+
+</body>
+
+</html>

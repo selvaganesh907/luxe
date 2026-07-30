@@ -1,0 +1,746 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>LuxeSalon</title>
+
+<style>
+    *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+
+
+body{
+
+background:#fff;
+
+}
+
+
+
+header{
+
+height:80px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px 60px;
+
+}
+
+
+
+.logo{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+
+
+.logo img{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+}
+
+
+
+.logo h2{
+
+font-size:25px;
+
+}
+
+
+
+nav{
+
+display:flex;
+
+align-items:center;
+
+gap:30px;
+
+}
+
+
+
+nav a{
+
+text-decoration:none;
+
+color:black;
+
+font-size:18px;
+
+}
+
+
+
+nav a:hover{
+
+color:rose;
+
+color:#e75480;
+
+}
+
+
+
+button{
+
+background:#e75480;
+
+color:black;
+
+border:none;
+
+padding:12px 25px;
+
+border-radius:25px;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+
+
+
+
+
+ /* Header section styled to the right side */
+        .header-container {
+            text-align: right;
+            margin-bottom: 40px;
+            padding-right: 20px;
+        }
+
+        .header-container h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .header-container p {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* 3x3 Grid rendering right-to-left */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            direction: rtl; /* Forces right-to-left card ordering */
+        }
+
+        /* Large screen-size card layout */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            direction: ltr; /* Restores left-to-right reading inside the card */
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Big size top image */
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: #222;
+            font-weight: bold;
+        }
+
+        .card-details {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* View Details Button */
+        .view-btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .view-btn:hover {
+            background-color: #e84118;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-container {
+                text-align: center;
+                padding-right: 0;
+            }
+        }
+
+
+
+
+
+
+        /* Page Management */
+.page {
+  display: none;
+  width: 100%;
+  max-width: 480px; /* Mobile-first responsive container */
+  background: #ffffff;
+  min-height: 100vh;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Universal Component: Buttons */
+.btn-primary {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #222222;
+}
+
+.btn-secondary {
+  background-color: #e0e0e0;
+  color: #333333;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* Page 1: Home List Styles */
+.list-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.summary-card {
+  text-align: center;
+  border: 1px solid #eeeeee;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.summary-card h3 {
+  margin-bottom: 20px;
+}
+
+/* Page 2: Details Styles */
+.details-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Center Screen-Size Card Image */
+.image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.center-card-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Headings & Paragraphs */
+.service-title {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.service-desc {
+  font-size: 14px;
+  color: #666666;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+/* Section Headings aligned left */
+.section-heading {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 12px;
+  color: #111111;
+}
+
+/* Benefits Section */
+.section-benefits {
+  margin-bottom: 24px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.mini-logo {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.benefit-item p {
+  font-size: 15px;
+  color: #444444;
+}
+
+/* Service Details Section */
+.section-details {
+  margin-bottom: 30px;
+  border-top: 1px solid #eeeeee;
+  padding-top: 16px;
+}
+
+.details-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #777777;
+  margin-bottom: 4px;
+}
+
+.details-row.values {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111111;
+}
+
+/* Center Button Wrapper */
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Page 3: Confirmation View */
+.confirmation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.laptop-view { width: 100%; max-width: 1600px; min-height: 700px; background: #ffffff; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px; position: relative; overflow: hidden; }
+.page-step { display: none; flex-direction: column; gap: 16px; width: 100%; height: 100%; }
+.page-step.active { display: flex; }
+.main-heading { font-size: 28px; font-weight: bold; color: #000000; }
+.sub-text { font-size: 14px; color: #4b5563; }
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 10px; }
+.card { border: 1px solid #e5e7eb; padding: 12px; border-radius: 6px; display: flex; flex-direction: column; gap: 8px; background: #fafafa; }
+.card img { width: 100%; height: 120px; object-fit: cover; border-radius: 4px; }
+.card-title { font-weight: bold; font-size: 15px; }
+.card-info { font-size: 13px; color: #6b7280; }
+.rose-btn { background: #e11d48; color: #ffffff; border: none; padding: 10px 20px; font-size: 14px; font-weight: bold; border-radius: 4px; cursor: pointer; text-align: center; }
+.rose-btn:hover { background: #be123c; }
+.black-heading { font-size: 24px; font-weight: bold; color: #000000; }
+.center-heading { font-size: 26px; font-weight: bold; color: #000000; text-align: center; }
+.center-img-container { display: flex; justify-content: center; }
+.big-img, .rect-img { max-width: 400px; max-height: 220px; object-fit: cover; border-radius: 6px; }
+.desc-text { font-size: 14px; color: #374151; }
+.sec-title { font-size: 16px; font-weight: bold; margin-top: 8px; }
+.benefit-row { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.benefit-row img { width: 20px; height: 20px; object-fit: contain; }
+.details-meta { font-size: 14px; font-weight: bold; color: #111827; }
+.bottom-center { display: flex; justify-content: center; margin-top: 20px; }
+.split-layout { display: flex; gap: 24px; justify-content: space-between; align-items: center; }
+.left-col { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.right-col { flex: 1; display: flex; justify-content: center; }
+.mini-select-card { border: 1px solid #d1d5db; padding: 16px; border-radius: 6px; cursor: pointer; background: #fff; display: flex; flex-direction: column; gap: 6px; }
+.mini-select-card.selected { border-color: #e11d48; background: #fff1f2; }
+.service-name { font-weight: bold; color: #000; }
+.mini-text { font-size: 13px; color: #4b5563; }
+.price-tag { font-size: 14px; font-weight: bold; color: #e11d48; }
+.mobile-calendar { display: flex; justify-content: center; margin: 20px 0; }
+.calendar-box { padding: 12px; font-size: 16px; border: 1px solid #d1d5db; border-radius: 4px; width: 100%; max-width: 300px; }
+.input-box { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; background: #ffffff; cursor: pointer; font-size: 14px; }
+form { display: flex; flex-direction: column; gap: 8px; max-width: 500px; }
+label { font-size: 13px; font-weight: bold; color: #374151; }
+.small-black { font-size: 14px; font-weight: bold; color: #000; }
+.sub-label { font-size: 13px; color: #4b5563; }
+.secure-text { font-size: 12px; color: #059669; }
+.booking-meta-box { background: #f9fafb; padding: 16px; border-radius: 6px; border: 1px solid #e5e7eb; display: flex; flex-direction: column; gap: 8px; max-width: 400px; margin: 0 auto; }
+.dual-buttons { display: flex; justify-content: center; gap: 16px; margin-top: 20px; }
+</style>
+ </head>
+
+    <body>
+                   <header>
+
+
+<div class="logo">
+
+<img src="{% static 'images/HomeTopLogo.jpg' %}" alt="">
+
+<h2>LuxeSalon</h2>
+
+</div>
+
+
+
+<nav>
+
+<a href="">Home</a>
+
+<a href="/services/">Services</a>
+
+<a href="/about/">About</a>
+
+<a href="/contact/">Contact</a>
+
+<button onclick="bookNow()">
+BookNow
+</button>
+
+
+</nav>
+</header>
+
+
+
+    
+    
+      <div class="laptop-view">
+    <!-- STEP 1: Services Grid -->
+    <section id="step-1" class="page-step active">
+      <h1 class="main-heading">Our Service</h1>
+      <p class="sub-text">Choose from our professional salon services below.</p>
+      <div class="card-grid">
+        <!-- 9 Cards -->
+        <div class="card"><img src="{% static 'images/Services1.jpg' %}" alt=""><div class="card-title">Haircut & Stylin</div><div class="card-info"><p>From classic cuts to modern styles, our expert stylists will 
+create a look that suits your personality and lifestyle.</p>₹500 • 45m</div><button class="rose-btn" onclick="goToStep(2)">View Details</button></div>
+        <div class="card"><img src="{% static 'images/services2.jpg' %}" alt=""><div class="card-title">Makeup Application</div><div class="card-info"><p>Enhance your natural beauty with our professional makeup 
+application services, perfect for special occasions or everyday 
+glamour</p>₹1200 • 90m</div><button class="rose-btn" onclick="goToStep(2)">View Details</button></div>
+        <div class="card"><img src="{% static 'images/services3.jpg' %}" alt=""><div class="card-title">Hair Coloring</div><div class="card-info"><p>Transform your look with our expert hair coloring services, 
+from subtle highlights to bold, vibrant shades, using premium 
+color products.</p>₹800 • 60m</div><button class="rose-btn" onclick="goToStep(2)">View Details</button></div>
+        <div class="card"><img src="{% static 'images/services4.jpg' %}" alt=""><div class="card-title">Bridal Packages</div><div class="card-info"><p>Prepare for your special day with our comprehensive bridal 
+packages, including hair, makeup, and nail services, to ensure 
+you look and feel your best.</p>₹400 • 30m</div><button class="rose-btn" onclick="goToStep(2)">View Details</button></div>
+        <div class="card"><img src="{% static 'images/services5.jpg' %}" alt=""><div class="card-title">Manicure & Pedicure</div><div class="card-info"><p>Indulge in our luxurious nail care services, including manicures, 
+pedicures, and nail art, for perfectly polished hands and feet.</p>₹450 • 40m</div><button class="rose-btn" onclick="goToStep(2)">View Details</button></div>
+        <div class="card"><img src="{% static 'images/services6.jpg' %}" alt=""><div class="card-title">Facial Treatments</div><div class="card-info"><p>Rejuvenate your skin with our customized facial treatments, 
+tailored to address your specific skin concerns and leave you 
+with a radiant glow.</p>₹300 • 25m</div><button class="rose-btn" onclick="goToStep(2)">View Details</button></div>
+        <div class="card"><img src="{% static 'images/services7.jpg' %}" alt=""><div class="card-title">Massage Therapy</div><div class="card-info"><p>Relax and unwind with our therapeutic massage services, 
+designed to relieve tension, soothe muscles, and promote 
+overall well-being.</p>₹200 • 20m</div><button class="rose-btn" onclick="goToStep(2)">View Details</button></div>
+        <div class="card"><img src="{% static 'images/service8.jpg' %}" alt=""><div class="card-title">Waxing Services</div><div class="card-info"><p>Achieve smooth, hair-free skin with our professional waxing 
+services, using high-quality products for a comfortable and 
+effective experience.</p>₹5000 • 120m</div><button class="rose-btn" onclick="goToStep(2)">View Details</button></div>
+        <div class="card"><img src="{% static 'images/service8.jpg' %}" alt=""><div class="card-title">Waxing Services</div><div class="card-info"><p>Achieve smooth, hair-free skin with our professional waxing 
+services, using high-quality products for a comfortable and 
+effective experience</p>₹900 • 60m</div><button class="rose-btn" onclick="goToStep(2)">View Details</button></div>
+      </div>
+    </section>
+
+    <!-- STEP 2: Service Details -->
+    <section id="step-2" class="page-step">
+      <div class="center-img-container"><img src="{% static 'images/Services1.jpg' %}" alt=""></div>
+      <h2 class="black-heading">Precision Haircut</h2>
+      <p class="desc-text">A modern cut tailored to your face structure and personal preference.</p>
+      <h3 class="sec-title">Benefits</h3>
+      <div class="benefit-row"><img src="{% static 'images/logo1.jpg '%}" alt=""> Personalized Consultation</div>
+      <div class="benefit-row"><img src="{% static 'images/logo2.jpg' %}" alt=""> Expert Styling</div>
+      <div class="benefit-row"><img src="{% static 'images/logo3.jpg' %}" alt=""> Premium Products</div>
+      <div class="details-meta">Duration: 45 mins | Price: ₹500</div>
+      <div class="bottom-center"><button class="rose-btn" onclick="goToStep(3)">Book Appointment</button></div>
+    </section>
+
+    <!-- STEP 3: Select Service Selection -->
+    <section id="step-3" class="page-step">
+      <div class="split-layout">
+        <div class="left-col">
+          <h2 class="black-heading">Select-Service</h2>
+          <div class="mini-select-card" onclick="selectServiceCard(this)">
+            <div class="service-name">Haircut</div>
+            <div class="mini-text">A classic haircut to refresh your style</div>
+            <div class="price-tag">₹500 <span class="tick" style="display:none">✓ Selected</span></div>
+          </div>
+        </div>
+        <div class="right-col"><img src="{% static 'images/rectangle1.jpg' %}" alt="" class="rect-img"></div>
+      </div>
+
+
+      <div class="split-layout">
+        <div class="left-col">
+          <h2 class="black-heading">Select-Service</h2>
+          <div class="mini-select-card" onclick="selectServiceCard(this)">
+            <div class="service-name">Manicure</div>
+            <div class="mini-text">A classic manicure to refresh your style.</div>
+            <div class="price-tag">₹500 <span class="tick" style="display:none">✓ Selected</span></div>
+          </div>
+        </div>
+        <div class="right-col"><img src="{% static 'images/rectangle2.jpg' %}" alt=""  class="rect-img"></div>
+      </div>
+        
+      <div class="split-layout">
+        <div class="left-col">
+          <h2 class="black-heading">Select-Service</h2>
+          <div class="mini-select-card" onclick="selectServiceCard(this)">
+            <div class="service-name">Pedicure</div>
+            <div class="mini-text">A classic pedicure to refresh your style.</div>
+            <div class="price-tag">₹500 <span class="tick" style="display:none">✓ Selected</span></div>
+          </div>
+        </div>
+        <div class="right-col"><img src="{% static 'images/rectangle3.jpg' %}" alt=""  class="rect-img"></div>
+      </div>
+
+      <div class="split-layout">
+        <div class="left-col">
+          <h2 class="black-heading">Select-Service</h2>
+          <div class="mini-select-card" onclick="selectServiceCard(this)">
+            <div class="service-name">Facial</div>
+            <div class="mini-text">A classic facial to refresh your style.</div>
+            <div class="price-tag">₹500 <span class="tick" style="display:none">✓ Selected</span></div>
+          </div>
+        </div>
+        <div class="right-col"><img src="{% static 'images/rectangle4.jpg' %}" alt=""  class="rect-img"></div>
+      </div>
+
+
+       
+
+       
+
+      
+      <div class="bottom-center"><button class="rose-btn" onclick="validateAndNext(3, 4)">Continue</button></div>
+    </section>
+
+    <!-- STEP 4: Date Selection -->
+    <section id="step-4" class="page-step">
+      <h2 class="black-heading">SelectDate</h2>
+      <div class="mobile-calendar">
+        <input type="date" id="date-input" class="calendar-box">
+      </div>
+      <div class="bottom-center"><button class="rose-btn" onclick="goToStep(5)">Next</button></div>
+    </section>
+
+    <!-- STEP 5: Enter Details Form -->
+    <section id="step-5" class="page-step">
+      <h2 class="black-heading">Enter your Details</h2>
+      <form id="details-form">
+        <label>FullName</label>
+        <input type="text" class="input-box" onclick="autoFill(this, 'P.selvaganesh')" readonly placeholder="Click to auto-fill">
+        <label>Phonenumber</label>
+        <input type="text" class="input-box" onclick="autoFill(this, '9876543210')" readonly placeholder="Click to auto-fill">
+        <label>Email-id</label>
+        <input type="text" class="input-box" onclick="autoFill(this, 'Selva@example.com')" readonly placeholder="Click to auto-fill">
+        <label>Notes(optional)</label>
+        <input type="text" class="input-box" onclick="autoFill(this, 'Please be gentle')" readonly placeholder="Click to auto-fill">
+      </form>
+      <div class="bottom-center"><button class="rose-btn" onclick="goToStep(6)">Confirm-Booking</button></div>
+    </section>
+
+    <!-- STEP 6: Confirm Booking & Payment Preview -->
+    <section id="step-6" class="page-step">
+      <h2 class="black-heading">Confirm Your Booking</h2>
+      <div class="small-black">YourBooking</div>
+      <div class="benefit-row"><img src="{% static 'images/logo4.jpg '%}" alt=""> Women's Haircut</div>
+      <div class="sub-label">Haircut</div>
+      <div class="benefit-row"><img src="{% static 'images/logo5.jpg '%}" alt="">With Sarah</div>
+      <div class="sub-label">Friday, August 14, 2026 - 11:00 AM</div>
+      <div class="sub-label" id="summary-contact">Email: selva@example.com | Phone: 9876543210</div>
+      <h3 class="black-heading">Payment</h3>
+      <div class="sub-label">Total rupees: ₹500</div>
+      <div class="sub-label">Pay in Person</div>
+      <div class="bottom-center"><button class="rose-btn" onclick="goToStep(7)">Proceed to Payment</button></div>
+    </section>
+
+    <!-- STEP 7: Card Payment -->
+    <section id="step-7" class="page-step">
+      <h2 class="black-heading">CardPayment</h2>
+      <div class="center-img-container"><img src="{% static 'images/Crad.jpg '%}" alt="Card banner" class="rect-img"></div>
+      <label>cardNumber</label>
+      <input type="text" class="input-box" onclick="autoFill(this, '4111 2222 3333 4444')" readonly>
+      <label>Name Card</label>
+      <input type="text" class="input-box" onclick="autoFill(this, 'P.Selvaganesh')" readonly>
+      <label>ExpiryDate(MM/YY)</label>
+      <input type="text" class="input-box" onclick="autoFill(this, '08/28')" readonly>
+      <label>CVV</label>
+      <input type="text" class="input-box" onclick="autoFill(this, '123')" readonly>
+      <p class="secure-text">Your card details are encrypted and secure.</p>
+      <div class="sub-label">TotalAmount: ₹500</div>
+      <div class="bottom-center"><button class="rose-btn" onclick="goToStep(8)">Pay Now</button></div>
+    </section>
+
+    <!-- STEP 8: Success & Final Screen -->
+    <section id="step-8" class="page-step">
+      <h2 class="center-heading">Your Appointment</h2>
+      <div class="center-img-container"><img src="{% static 'images/booked success.jpg'%}"alt="Success" class="big-img"></div>
+      <div class="booking-meta-box">
+        <p><strong>Booking ID:</strong> #SB-98214</p>
+        <p><strong>Service:</strong> Haircut</p>
+        <p><strong>Professional:</strong> Sarah</p>
+        <p><strong>Date:</strong> August 14, 2026</p>
+        <p><strong>Time:</strong> 11:00 AM</p>
+      </div>
+      <div class="dual-buttons">
+        <button class="rose-btn" onclick="goToStep(1)">Go to Home</button>
+        <button class="rose-btn" onclick="goToStep(1)">Book Appointment</button>
+      </div>
+    </section>
+  </div>
+
+    <script>
+         
+    function goToStep(stepNumber) {
+  alert("Moving to next step!");
+  document.querySelectorAll('.page-step').forEach(el => el.classList.remove('active'));
+  document.getElementById('step-' + stepNumber).classList.add('active');
+}
+
+function selectServiceCard(element) {
+  element.classList.toggle('selected');
+  const tick = element.querySelector('.tick');
+  if (element.classList.contains('selected')) {
+    tick.style.display = 'inline';
+    alert("Service selected!");
+  } else {
+    tick.style.display = 'none';
+  }
+}
+
+function validateAndNext(currentStep, nextStep) {
+  const selected = document.querySelector('#step-' + currentStep + ' .mini-select-card.selected');
+  if (!selected) {
+    alert("Please select a service before continuing.");
+    return;
+  }
+  goToStep(nextStep);
+}
+
+function autoFill(inputElement, value) {
+  inputElement.value = value;
+  alert("Auto-filled: " + value);
+}
+    </script>
+
+  
+
+
+
+
+
+</body>
+   
+    </html>
+
+    
+    

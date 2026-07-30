@@ -1,0 +1,1 @@
+web: gunicorn luxesalon_project.wsgi
